@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_editor/edit_image_screen.dart';
-import 'package:photo_editor/picker_bloc.dart';
+import 'package:photo_editor/edit_image_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,12 +13,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return BlocProvider(
+      create: (_) => EditImageBloc(),
+      child: const MaterialApp(
         title: 'Photo Editor',
-        home: BlocProvider(
-          create: (_) => PickerCubit(),
-          child: const MyHomePage(),
-        ));
+        home: MyHomePage(),
+      ),
+    );
   }
 }
 
@@ -29,24 +30,24 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: BlocListener<PickerCubit, String?>(
-          listener: (context, image) => _listenImage(context, image),
+        body: BlocListener<EditImageBloc, EditImageEvent>(
+          listener: (context, event) => _listenImage(context, event),
           child: Center(
             child: ElevatedButton(
-              onPressed: () => context.read<PickerCubit>().pickImage(),
+              onPressed: () => context.read<EditImageBloc>().pickImage(),
               child: const Text('Pick Image'),
             ),
           ),
         ));
   }
 
-  void _listenImage(BuildContext context, String? path) {
-    if (path == null) {
-      return;
+  void _listenImage(BuildContext context, EditImageEvent event) {
+    if (event is ImagePicked) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const EditImageScreen(),
+          ));
     }
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => EditImageScreen(key, path)),
-    );
   }
 }
