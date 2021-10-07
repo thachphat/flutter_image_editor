@@ -2,15 +2,11 @@
 
 A new Flutter project.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [ ] Allow user to upload a photo from the photo album
+- [ ] Allow user to put regular stickers on their photo and move them around (example: Instagram Story)
+- [ ] Allow user to add photo filter overlays (example: Instagram filters)
+- [ ] Add Local State - User can continue to edit a photo and keep a draft version
+- [ ] Allow user to upload multiple photos and put them together (example: Instagram collage)
+- [ ] Allow user to add description tags for objects and people in the photo
