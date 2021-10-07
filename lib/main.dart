@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:photo_editor/edit_image_screen.dart';
 import 'package:photo_editor/picker_bloc.dart';
 
 void main() {
@@ -29,24 +28,25 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: BlocBuilder<PickerCubit, String?>(
-          builder: (context, image) => _createView(context, image)),
-    );
+        backgroundColor: Colors.white,
+        body: BlocListener<PickerCubit, String?>(
+          listener: (context, image) => _listenImage(context, image),
+          child: Center(
+            child: ElevatedButton(
+              onPressed: () => context.read<PickerCubit>().pickImage(),
+              child: const Text('Pick Image'),
+            ),
+          ),
+        ));
   }
 
-  Widget _createView(BuildContext context, String? path) {
-    // TODO: navigate to image screen
+  void _listenImage(BuildContext context, String? path) {
     if (path == null) {
-      return Center(
-        child: ElevatedButton(
-          onPressed: () => context.read<PickerCubit>().pickImage(),
-          child: const Text('Pick Image'),
-        ),
-      );
+      return;
     }
-    return Center(
-      child: Image.file(File(path)),
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EditImageScreen(key, path)),
     );
   }
 }
