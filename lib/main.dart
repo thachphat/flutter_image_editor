@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_editor/edit_image_screen.dart';
@@ -53,5 +54,36 @@ class MyHomePage extends StatelessWidget {
             builder: (_) => const EditImageScreen(),
           ));
     }
+    if (event is NoPhotoPermission) {
+      _showPhotoPermissionDialog(context);
+    }
+  }
+
+  Future<void> _showPhotoPermissionDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('Please enable photo permission to use this app.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                AppSettings.openAppSettings();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_editor/image_repository.dart';
 import 'package:photo_editor/models/image.dart';
 import 'package:photo_editor/models/sticker.dart';
@@ -23,6 +24,10 @@ class ImageStickerAdded extends EditImageEvent {
   final Sticker sticker;
 }
 
+class NoPhotoPermission extends EditImageEvent {
+  const NoPhotoPermission();
+}
+
 // TODO: remove last image when back to home
 
 class EditImageBloc extends Cubit<EditImageEvent> {
@@ -34,6 +39,11 @@ class EditImageBloc extends Cubit<EditImageEvent> {
   MyImage? get lastImage => _imageRepository.lastImage;
 
   void pickImage() async {
+    final status = await Permission.photos.status;
+    if (status.isDenied || status.isPermanentlyDenied) {
+      emit(const NoPhotoPermission());
+      return;
+    }
     final file = await _picker.pickImage(source: ImageSource.gallery);
     if (file == null) {
       return;
