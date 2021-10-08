@@ -1,6 +1,6 @@
-# photo_editor
+# Flutter image edit
 
-A new Flutter project.
+A simple image editor allow users to add emoji, save draft.
 
 ## Features
 
