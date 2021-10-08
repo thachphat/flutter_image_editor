@@ -10,3 +10,6 @@ A new Flutter project.
 - [x] Add Local State - User can continue to edit a photo and keep a draft version
 - [ ] Allow user to upload multiple photos and put them together (example: Instagram collage)
 - [ ] Allow user to add description tags for objects and people in the photo
+
+## Demo
+![Image of Yaktocat](demo.gif)
