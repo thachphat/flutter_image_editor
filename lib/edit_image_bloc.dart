@@ -30,6 +30,7 @@ class EditImageBloc extends Cubit<EditImageEvent> {
 
   final _picker = ImagePicker();
   final _imageRepository = ImageRepository();
+
   MyImage? get lastImage => _imageRepository.lastImage;
 
   void pickImage() async {

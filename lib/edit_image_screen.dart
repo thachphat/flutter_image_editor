@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_editor/edit_image_bloc.dart';
-import 'package:photo_editor/sticker_bloc.dart';
 import 'package:photo_editor/sticker_screen.dart';
 import 'package:photo_editor/sticker_widget.dart';
 
@@ -18,7 +17,6 @@ class EditImageScreen extends StatelessWidget {
       body:
           BlocBuilder<EditImageBloc, EditImageEvent>(builder: (context, event) {
         var views = <Widget>[];
-        // TODO: find a way to recreate image + stickers
         final image = context.read<EditImageBloc>().lastImage;
         if (image == null) {
           views = [const Text('Please go back and add image')];
@@ -30,7 +28,6 @@ class EditImageScreen extends StatelessWidget {
           ];
           views.addAll(
               image.stickers.map((sticker) => StickerWidget(sticker: sticker)));
-          // TODO: add sticker to screen
         }
         return Stack(
           children: views,
@@ -50,10 +47,7 @@ class EditImageScreen extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MultiBlocProvider(providers: [
-          BlocProvider(create: (_) => StickerBloc()),
-          BlocProvider(create: (_) => context.read<EditImageBloc>()),
-        ], child: const StickerScreen()),
+        builder: (_) => const StickerScreen(),
       ),
     );
   }

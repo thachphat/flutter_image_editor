@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_editor/edit_image_screen.dart';
 import 'package:photo_editor/edit_image_bloc.dart';
+import 'package:photo_editor/sticker_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +14,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => EditImageBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => EditImageBloc()),
+        BlocProvider(create: (_) => StickerBloc())
+      ],
       child: const MaterialApp(
         title: 'Photo Editor',
         home: MyHomePage(),

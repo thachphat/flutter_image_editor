@@ -31,8 +31,7 @@ class StickerScreen extends StatelessWidget {
                         .read<EditImageBloc>()
                         .addStickerToLastImage(sticker),
                     child: Center(
-                        child: Image(
-                            image: AssetImage(sticker.assetName))),
+                        child: Image(image: AssetImage(sticker.assetName))),
                   ),
                 )
                 .toList(),
