@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'models/sticker.dart';
+import '../../models/sticker.dart';
 
 class StickerWidget extends StatefulWidget {
   const StickerWidget({Key? key, required this.sticker}) : super(key: key);

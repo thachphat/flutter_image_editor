@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photo_editor/edit_image_bloc.dart';
-import 'package:photo_editor/sticker_screen.dart';
-import 'package:photo_editor/sticker_widget.dart';
+import 'package:photo_editor/edit_image/bloc/edit_image_bloc.dart';
+import 'package:photo_editor/select_sticker/views/sticker_screen.dart';
+import 'package:photo_editor/edit_image/views/sticker_widget.dart';
 
-import 'edit_image_event.dart';
+import '../bloc/edit_image_event.dart';
 
 class EditImageScreen extends StatelessWidget {
   const EditImageScreen({Key? key}) : super(key: key);

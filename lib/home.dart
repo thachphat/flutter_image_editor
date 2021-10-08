@@ -1,10 +1,10 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:photo_editor/edit_image_bloc.dart';
-import 'package:photo_editor/edit_image_event.dart';
+import 'package:photo_editor/edit_image/bloc/edit_image_bloc.dart';
+import 'package:photo_editor/edit_image/bloc/edit_image_event.dart';
 
-import 'edit_image_screen.dart';
+import 'edit_image/views/edit_image_screen.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);

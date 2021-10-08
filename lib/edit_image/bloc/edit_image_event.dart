@@ -1,5 +1,5 @@
-import 'models/image.dart';
-import 'models/sticker.dart';
+import '../../models/image.dart';
+import '../../models/sticker.dart';
 
 abstract class EditImageEvent {
   const EditImageEvent();
