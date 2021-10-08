@@ -5,28 +5,7 @@ import 'package:photo_editor/image_repository.dart';
 import 'package:photo_editor/models/image.dart';
 import 'package:photo_editor/models/sticker.dart';
 
-abstract class EditImageEvent {
-  const EditImageEvent();
-}
-
-class EditImageStarted extends EditImageEvent {
-  const EditImageStarted();
-}
-
-class ImagePicked extends EditImageEvent {
-  const ImagePicked(this.image) : super();
-  final MyImage image;
-}
-
-class ImageStickerAdded extends EditImageEvent {
-  const ImageStickerAdded(this.image, this.sticker) : super();
-  final MyImage image;
-  final Sticker sticker;
-}
-
-class NoPhotoPermission extends EditImageEvent {
-  const NoPhotoPermission();
-}
+import 'edit_image_event.dart';
 
 // TODO: remove last image when back to home
 
@@ -38,6 +17,11 @@ class EditImageBloc extends Cubit<EditImageEvent> {
 
   MyImage? get lastImage => _imageRepository.lastImage;
 
+  void onStarted() async {
+    await _imageRepository.setup();
+    loadDraftImages();
+  }
+
   void pickImage() async {
     final status = await Permission.photos.status;
     if (status.isDenied || status.isPermanentlyDenied) {
@@ -48,8 +32,13 @@ class EditImageBloc extends Cubit<EditImageEvent> {
     if (file == null) {
       return;
     }
-    final image = MyImage(file.path);
+    final image = MyImage(DateTime.now().millisecondsSinceEpoch, file.path);
     _imageRepository.addImage(image);
+    imageSelected(image);
+  }
+
+  void imageSelected(MyImage image) {
+    _imageRepository.imageSelected(image);
     emit(ImagePicked(image));
   }
 
@@ -64,5 +53,19 @@ class EditImageBloc extends Cubit<EditImageEvent> {
       return;
     }
     addSticker(lastImage, sticker);
+  }
+
+  void saveDraftImage() {
+    final lastImage = this.lastImage;
+    if (lastImage == null) {
+      return;
+    }
+    _imageRepository.saveDraftImage(lastImage);
+    loadDraftImages();
+  }
+
+  void loadDraftImages() async {
+    final images = await _imageRepository.loadDraftImages();
+    emit(DraftImageChanges(images));
   }
 }

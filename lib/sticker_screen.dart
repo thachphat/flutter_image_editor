@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_editor/edit_image_event.dart';
 import 'package:photo_editor/models/sticker.dart';
 import 'package:photo_editor/edit_image_bloc.dart';
 import 'package:photo_editor/sticker_bloc.dart';

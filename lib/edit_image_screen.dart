@@ -7,6 +7,8 @@ import 'package:photo_editor/edit_image_bloc.dart';
 import 'package:photo_editor/sticker_screen.dart';
 import 'package:photo_editor/sticker_widget.dart';
 
+import 'edit_image_event.dart';
+
 class EditImageScreen extends StatelessWidget {
   const EditImageScreen({Key? key}) : super(key: key);
 
@@ -36,9 +38,23 @@ class EditImageScreen extends StatelessWidget {
       // Center(
       //   child: Image.file(File(_path)),
       // ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => _showStickerScreen(context),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed: () => _showStickerScreen(context),
+            heroTag: null,
+          ),
+          FloatingActionButton(
+            child: const Icon(Icons.save),
+            onPressed: () {
+              context.read<EditImageBloc>().saveDraftImage();
+              Navigator.pop(context);
+            },
+            heroTag: null,
+          ),
+        ],
       ),
     );
   }
